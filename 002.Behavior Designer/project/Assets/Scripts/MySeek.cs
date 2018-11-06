@@ -6,13 +6,16 @@ using UnityEngine;
 
 public class MySeek : Action
 {
-    public float speed;
+    //public float speed;
+
+    public SharedFloat speed;
     public SharedTransform target;
-    public float arriveDistance = 0.1f;
+    public SharedFloat arriveDistance;
+    //public float arriveDistance = 0.1f;
     private float sqrArriveDistance;
     public override void OnStart()
     {
-        sqrArriveDistance = arriveDistance*arriveDistance;
+        sqrArriveDistance = arriveDistance.Value*arriveDistance.Value;
     }
 
     public override TaskStatus OnUpdate()
@@ -21,7 +24,7 @@ public class MySeek : Action
             return TaskStatus.Failure;
 
         transform.LookAt(target.Value.position);
-        transform.position =  Vector3.MoveTowards(transform.position, target.Value.position, speed*Time.deltaTime);
+        transform.position =  Vector3.MoveTowards(transform.position, target.Value.position, speed.Value * Time.deltaTime);
 
         //sqrMagnitude: 求得的距离不开根号（开根号消耗性能）
         if ((target.Value.position - transform.position).sqrMagnitude < sqrArriveDistance)

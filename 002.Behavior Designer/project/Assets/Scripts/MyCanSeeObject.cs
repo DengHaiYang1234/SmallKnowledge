@@ -8,7 +8,9 @@ public class MyCanSeeObject : Conditional
 {
     public Transform[] targets;
     public float fieldOfViewAngle = 90;
-    public float viewDistance = 7;
+    //public float viewDistance = 7;
+
+    public SharedFloat sharedViewDistance = 7;
 
     public SharedTransform target;
 
@@ -24,7 +26,7 @@ public class MyCanSeeObject : Conditional
             float angle = Vector3.Angle(transform.forward, target.position - transform.position);
 
             //目标与z轴的夹角要小于  可是角度的一半
-            if (distance < viewDistance && angle < fieldOfViewAngle*0.5f)
+            if (distance < sharedViewDistance.Value && angle < fieldOfViewAngle*0.5f)
             {
                 this.target.Value = target;
                 return TaskStatus.Success;
