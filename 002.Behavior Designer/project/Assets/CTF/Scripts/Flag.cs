@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class Flag : MonoBehaviour
 {
-    private Offense owner;
+    public Offense owner;
 
     public void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Offense")
         {
+            if(owner == null)
+                CTFGameManager.Instance.TakenFlag();
+
             //被抢走
             if (owner != null)
             {
